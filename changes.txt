@@ -2,7 +2,7 @@ changes.txt - Common Library Version 0.2                     February 18, 2004
 
                     http://sourceforge.net/projects/oserl/
 
-                    Enrique Marcote Peña <mpquique@udc.es>
+            Enrique Marcote Peña <mpquique@users.sourceforge.net>
 
 
 (Find a HTML version of this document in doc/changes.html)
