@@ -56,16 +56,17 @@
 %%    N = int()
 %%    R = error | int()
 %%
-%% @doc Computes the combinatios of <tt>M</tt> elements taken by
-%% <tt>N</tt>.
+%% @doc Computes the combinations of <tt>M</tt> elements taken by
+%% <tt>N</tt> without repetitions.
+%%
+%% <p>This functions exits if <tt>(M < 0)</tt>, <tt>(N < 0)</tt> or 
+%% <tt>(M < N)</tt>.</p>
 %% 
 %% @see div_factorial/2
 %% @see factorial/1
 %% @end
-combinations(M, N) when (M < 0) or (N < 0) or (M < N) ->
-	 error;					
-combinations(M, N) ->
-	 trunc(div_factorial(M, N) / factorial(M - N)).
+combinations(M, N) when (M >= 0), (N >= 0), (M >= N) ->
+     trunc(div_factorial(M, N) / factorial(M - N)).
 
 %%%===================================================================
 % Internal functions
@@ -77,8 +78,10 @@ combinations(M, N) ->
 %% @doc Computes the factorial of an integer.  The result is
 %% undetermined if a negative number is given to the function.
 %% @end
-factorial(0)            -> 1;
-factorial(N) when N > 0 -> N * factorial(N - 1).
+factorial(0) -> 
+    1;
+factorial(N) when N > 0 -> 
+    N * factorial(N - 1).
 
 %% @spec div_factorial(M, N) -> R
 %%    M = int()
@@ -89,6 +92,9 @@ factorial(N) when N > 0 -> N * factorial(N - 1).
 %% their factorials.  The result will be undetermined if <tt>N</tt> is
 %% smaller than 0 or any of the arguments is a negative number.
 %% @end
-div_factorial(M, M)            -> 1;
-div_factorial(M, N) when N > M -> 0;
-div_factorial(M, N)            -> M * div_factorial(M - 1, N).
+div_factorial(M, N) when N > M -> 
+    0;
+div_factorial(M, M) -> 
+    1;
+div_factorial(M, N) -> 
+    M * div_factorial(M - 1, N).
