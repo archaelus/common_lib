@@ -1,4 +1,4 @@
-changes.txt - Common Library Version 1.1                     Nov 09, 2004
+changes.txt - Common Library Version 1.2                     Nov 09, 2004
 
                     http://sourceforge.net/projects/oserl/
 
@@ -18,6 +18,8 @@ Contents
 2.2  my_calendar.erl
 2.3  my_lists.erl
 3.   Changes 1.0 -> 1.1
+3.1  my_lists.erl
+4.   Changes 1.1 -> 1.2
 
 ---
 
@@ -66,5 +68,17 @@ How these changes affected individual files is described below.
 
 3.   Changes 1.0 -> 1.1
 
+- Added module xml.erl
+- New functions added to my_lists.erl
+
+How these changes affected individual files is described below.
+
+3.1  my_lists.erl
+
+- New functions: from_number/1 and to_number/1.
+
+
+4.   Changes 1.1 -> 1.2
+
 - Remove R10B warnings related to unused vars.
-- New module xml.erl added.
+
