@@ -81,7 +81,7 @@
 %% @spec '@'(Element1, AttrName, AttrValue) -> Element2
 %%    Element1 = xmlElement()
 %%    AttrName = atom()
-%%    AttrValue = IOlist() | atom() | integer()
+%%    AttrValue = iolist() | atom() | integer()
 %%    Element2 = xmlElement()
 %%
 %% @doc Sets the value of the attribute named <tt>AttrName</tt>.  It the
@@ -209,7 +209,7 @@ insert_content(Element, Name, Path, Value) ->
 %%
 %% @see insert_content/4
 %% @end 
-insert_content(Parent, [#xmlElement{name = N} = H|T], N, Path, Value, Acc) ->
+insert_content(_Parent, [#xmlElement{name = N} = H|T], N, Path, Value, Acc) ->
     % The root of the path (given by N) matches the name of H
     Child = insert_content(H, Path, Value), % get into H and insert_content 
     lists:reverse(T) ++ [Child|Acc];
@@ -281,7 +281,7 @@ insert_element(Parent, [], Name, Path, Value, Acc) ->
     % Need to create a new child named Name in the content of Parent.
     Child = insert_element(child(Parent, Name, []), Path, Value),
     Acc ++ [Child];
-insert_element(Parent, [#xmlElement{name = N} = H|T], N, Path, Value, Acc) ->
+insert_element(_Parent, [#xmlElement{name = N} = H|T], N, Path, Value, Acc) ->
     % The new child (given by Path and Value) goes inside H, the root of the
     % path (given by N) matches the name of H.
     Child = insert_element(H, Path, Value),
@@ -381,7 +381,7 @@ child(#xmlElement{content = C} = E, Name, Value) ->
                 pos = Pos,
                 content = Content,
                 language = E#xmlElement.language,
-                directory = E#xmlElement.directory}.
+                xmlbase = E#xmlElement.xmlbase}.
 
 
 %% @spec content(Element1, Value) -> Element2
