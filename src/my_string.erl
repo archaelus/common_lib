@@ -27,7 +27,11 @@
 % [18 Feb 2004]
 %
 % <ul>
-%   <li>Functions <tt>is_dec/1</tt> and <tt>is_hex/1</tt> added.</li>
+%   <li>Functions <a href="#is_dec-1">is_dec/1</a> and <a href="#is_hex-1">
+%     is_hex/1</a> added.</li>
+%   <li>Functions <a href="#is_atime-1">is_atime/1</a> and 
+%     <a href="#is_rtime-1">is_rtime/1</a> added.
+%   </li>
 % </ul>
 %
 %
@@ -60,6 +64,8 @@
          chop_tokens/3,
          is_dec/1,
          is_hex/1,
+         is_atime/1,
+         is_rtime/1,
          lowercase/1,
          replace_chars/3,
          split_by_word/2, 
@@ -309,6 +315,109 @@ is_hex([Digit|Rest]) when (Digit >= 47) and (Digit =< 57);
     is_hex(Rest);
 
 is_hex(_String) ->
+    false.
+
+
+%%%
+% @spec is_atime(String) -> bool()
+%    String = string()
+%
+% @doc Checks if String is a representacion of an absolute time value in the
+% format "YYMMDDhhmmsstnnp" where
+%
+% <dl>
+%   <dt>YY</dt><dd>00 - 99</dd>
+%   <dt>MM</dt><dd>01 - 12</dd>
+%   <dt>DD</dt><dd>01 - 31</dd>
+%   <dt>hh</dt><dd>00 - 23</dd>
+%   <dt>mm</dt><dd>00 - 59</dd>
+%   <dt>ss</dt><dd>00 - 59</dd>
+%   <dt>t</dt><dd>0 - 9</dd>
+%   <dt>nn</dt><dd>00 - 48</dd>
+%   <dt>p</dt><dd>+ | -</dd>
+% </dl>
+%
+% <p>If <tt>String</tt> is empty, <tt>true</tt> is returned.</p>
+%
+% @see is_rtime/1
+% @end
+%
+% %@equiv
+%%
+is_atime([]) ->
+    true;
+
+is_atime([Y1,Y2,M1,M2,D1,D2,H1,H2,Min1,Min2,S1,S2,T,N1,N2,P]) when P == $+;
+                                                                   P == $- ->
+    case is_dec([Y1,Y2,M1,M2,D1,D2,H1,H2,Min1,Min2,S1,S2,T,N1,N2]) of
+        true ->
+            Date   = {list_to_integer([Y1,Y2]),
+                      list_to_integer([M1,M2]),
+                      list_to_integer([D1,D2])},
+            Hour   = list_to_integer([H1,H2]),
+            Minute = list_to_integer([Min1,Min2]),
+            Second = list_to_integer([S1,S2]),
+            To_UTC = list_to_integer([N1,N2]),
+            case calendar:valid_date(Date) of
+                true when Hour < 24, Minute < 60, Second < 60, To_UTC < 49 ->
+                    true;
+                _Otherwise ->
+                    false
+            end;
+        false ->
+            false
+    end;
+
+is_atime(_String) ->
+    false.
+
+
+%%%
+% @spec is_rtime(String) -> bool()
+%    String = string()
+%
+% @doc Checks if String is a representacion of a relative time value in the
+% format "YYMMDDhhmmsstnnp" where
+%
+% <dl>
+%   <dt>YY</dt><dd>00 - 99</dd>
+%   <dt>MM</dt><dd>01 - 12</dd>
+%   <dt>DD</dt><dd>01 - 31</dd>
+%   <dt>hh</dt><dd>00 - 23</dd>
+%   <dt>mm</dt><dd>00 - 59</dd>
+%   <dt>ss</dt><dd>00 - 59</dd>
+%   <dt>t</dt><dd>0</dd>
+%   <dt>nn</dt><dd>00</dd>
+%   <dt>p</dt><dd>R</dd>
+% </dl>
+%
+% <p>If <tt>String</tt> is empty, <tt>true</tt> is returned.</p>
+%
+% @see is_atime/1
+% @end
+%
+% %@equiv
+%%
+is_rtime([]) ->
+    true;
+
+is_rtime([Y1,Y2,M1,M2,D1,D2,H1,H2,Min1,Min2,S1,S2,$0,$0,$0,$R]) ->
+    case is_dec([Y1,Y2,M1,M2,D1,D2,H1,H2,Min1,Min2,S1,S2]) of
+        true ->
+            Hour   = list_to_integer([H1,H2]),
+            Minute = list_to_integer([Min1,Min2]),
+            Second = list_to_integer([S1,S2]),
+            if
+                (Hour < 24) and (Minute < 60) and (Second < 60) -> 
+                    true;
+                true ->
+                    false
+            end;
+        false ->
+            false
+    end;
+
+is_rtime(_String) ->
     false.
 
 

@@ -2,10 +2,13 @@ changes.txt - Common Library Version 0.2                     February 18, 2004
 
                     http://sourceforge.net/projects/oserl/
 
-Enrique Marcote Peña <mpquique@udc.es>
+                    Enrique Marcote Peña <mpquique@udc.es>
 
 
-Index
+(Find a HTML version of this document in doc/changes.html)
+
+
+Contents
 
 1.   Changes 0.1 -> 0.2
 1.1  binary.erl
@@ -17,10 +20,8 @@ Index
 
 1.   Changes 0.1 -> 0.2
 
-- New binary module.
-
-- Some functions added to my_string.erl
-
+- New binary.erl module.
+- New functions added to my_string.erl
 
 How these changes affected individual files is described below.
 
@@ -33,3 +34,4 @@ How these changes affected individual files is described below.
 1.2  my_string.erl 
 
 - New functions is_hex/1 and is_dec/1 added.
+- Functions is_atime/1 and is_rtime/1 added.

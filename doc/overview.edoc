@@ -2,11 +2,33 @@
 	Common Library overview page
 
 @author Enrique Marcote Peña <mpquique@udc.es> [http://www.des.udc.es/~mpquique/]
-@copyright 2003 Enrique Marcote Peña
-@version 0.1
+@copyright 2003 - 2004 Enrique Marcote Peña
+@version 0.2
 
 @doc This library modules group together some generic functions that might be
 usefull in several contexts.
 
 <p>Please, refer to individual modules for greater details on exported 
 functions.</p>
+
+<h2><a name="contents">Contents</a></h2>
+<ol>
+  <li><a href="#changes">Changes</a>
+    <ol>
+      <li><a href="#changes0_1-0_2">Changes 0.1 -&gt; 0.2</a></li>
+    </ol>
+  </li>
+</ol>
+
+
+<h2><a name="changes">Changes</a></h2>
+
+<h3><a name="changes0_1-0_2">Changes 0.1 -&gt; 0.2</a></h3>
+
+<ul>
+  <li>New <a href="binary.html">binary.erl</a> module.</li>
+  <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
+</ul>
+
+<p>How these changes affected individual files is described 
+<a href="changes.html">here</a>.</p>
