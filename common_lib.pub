@@ -1,10 +1,10 @@
 {name, "common_lib"}.
-{vsn, {0,1}}.
+{vsn, {0,2}}.
 {summary, "Some General Purpose Library Modules"}.
-{author, "Enrique Marcote Peña", "mpquique@udc.es", "030627"}.
-{keywords, ["calendar", "lists", "string", "stats"]}.
+{author, "Enrique Marcote Peña", "mpquique@udc.es", "20030627"}.
+{keywords, ["binary", "calendar", "lists", "string", "stats"]}.
 {needs, []}.
-{abstract,"Some modules with extra functions on calendar, lists, strings and statistics."}.
+{abstract,"Some modules with extra functions on binaries, calendar, lists, strings and statistics."}.
 
 
 

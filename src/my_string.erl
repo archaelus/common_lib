@@ -1,5 +1,5 @@
 %%%
-% Copyright (C) 2003 Enrique Marcote Peña <mpquique@udc.es>
+% Copyright (C) 2003 - 2004 Enrique Marcote Peña <mpquique@udc.es>
 %
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -21,7 +21,17 @@
 %
 % <p>Additional functions for string processing.</p>
 %
-% @copyright 2003 Enrique Marcote Peña
+%
+% <h2>Changes 0.1 -&gt; 0.2</h2>
+%
+% [18 Feb 2004]
+%
+% <ul>
+%   <li>Functions <tt>is_dec/1</tt> and <tt>is_hex/1</tt> added.</li>
+% </ul>
+%
+%
+% @copyright 2003 - 2004 Enrique Marcote Peña
 % @author Enrique Marcote Peña <mpquique@udc.es>
 %         [http://www.des.udc.es/~mpquique/]
 % @version 0.1, {23 Sep 2003} {@time}.
@@ -48,6 +58,8 @@
          aequal/6,
          chop_token/2, 
          chop_tokens/3,
+         is_dec/1,
+         is_hex/1,
          lowercase/1,
          replace_chars/3,
          split_by_word/2, 
@@ -247,6 +259,57 @@ chop_tokens(String, N, SeparatorList, Tokens) when String == ""; N == 0 ->
 chop_tokens(String, N, SeparatorList, Tokens) ->
     {Token, RestOfString} = chop_token(String, SeparatorList),
     chop_tokens(RestOfString, N-1, SeparatorList, [Token|Tokens]).
+
+
+%%%
+% @spec is_dec(String) -> bool()
+%    String = string()
+%
+% @doc Checks if String is a sequence of decimal digits, every character
+% belongs to [$0, $1, $2, $3, $4, $5, $6, $7, $8, $9].
+%
+% <p>If <tt>String</tt> is empty, <tt>true</tt> is returned.</p>
+%
+% @see is_hex/1
+% @end
+%
+% %@equiv
+%%
+is_dec([]) ->
+    true;
+
+is_dec([Digit|Rest]) when (Digit >= 48) and (Digit =< 57) ->
+    is_dec(Rest);
+
+is_dec(_String) ->
+    false.
+
+
+%%%
+% @spec is_hex(String) -> bool()
+%    String = string()
+%
+% @doc Checks if String is a sequence of hexadecimal digits, every character
+% belongs to [$0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $A, $B, $C, $D, $E, $F,
+% $a, $b, $c, $d, $e, $f].
+%
+% <p>If <tt>String</tt> is empty, <tt>true</tt> is returned.</p>
+%
+% @see is_dec/1
+% @end
+%
+% %@equiv
+%%
+is_hex([]) ->
+    true;
+
+is_hex([Digit|Rest]) when (Digit >= 47) and (Digit =< 57);
+                          (Digit >= 65) and (Digit =< 70);
+                          (Digit >= 97) and (Digit =< 102) ->
+    is_hex(Rest);
+
+is_hex(_String) ->
+    false.
 
 
 %%%

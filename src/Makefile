@@ -36,6 +36,7 @@ RELSYSDIR = $(RELEASE_PATH)/lib/$(APPNAME)-$(VSN)
 # ----------------------------------------------------
 
 EDOC_MODULES = \
+	binary \
 	my_calendar \
 	my_lists \
 	my_string \

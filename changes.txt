@@ -1,0 +1,35 @@
+changes.txt - Common Library Version 0.2                     February 18, 2004
+
+                    http://sourceforge.net/projects/oserl/
+
+Enrique Marcote Peña <mpquique@udc.es>
+
+
+Index
+
+1.   Changes 0.1 -> 0.2
+1.1  binary.erl
+1.2  my_string.erl
+
+
+---
+
+
+1.   Changes 0.1 -> 0.2
+
+- New binary module.
+
+- Some functions added to my_string.erl
+
+
+How these changes affected individual files is described below.
+
+
+1.1  binary.erl 
+
+- Created.
+
+
+1.2  my_string.erl 
+
+- New functions is_hex/1 and is_dec/1 added.
