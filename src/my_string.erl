@@ -266,7 +266,7 @@ chop_tokens(String, N, SeparatorList) when N > 0 ->
 %%
 %% @see chop_tokens/3
 %% @end
-chop_tokens(String, N, SeparatorList, Tokens) when String == ""; N == 0 ->
+chop_tokens(String, N, _SeparatorList, Tokens) when String == ""; N == 0 ->
     {lists:reverse(Tokens), String};
 chop_tokens(String, N, SeparatorList, Tokens) ->
     {Token, RestOfString} = chop_token(String, SeparatorList),
