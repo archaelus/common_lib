@@ -30,10 +30,20 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% <h2>Changes 1.0 -&gt; 1.1</h2>
+%%%
+%%% [29 Jul 2004]
+%%%
+%%% <ul>
+%%%   <li>New functions: <a href="#from_number-2">from_number/1</a> and
+%%%     <a href="#to_number-1">to_number/1</a>.
+%%%   </li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
-%%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
-%%%         [http://www.des.udc.es/~mpquique/]
-%%% @version 1.0, {19 Feb 2003} {@time}.
+%%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
+%%%         [http://oserl.sourceforge.net/]
+%%% @version 1.1, {19 Feb 2003} {@time}.
 %%% @end
 -module(my_lists).
 
@@ -56,6 +66,7 @@
 -export([asearch/2,
          cut/2, 
          first/2,
+         from_number/1,
          has_duplicates/1,
          is_deep/1,
          keyindex/3,
@@ -64,7 +75,8 @@
          search/2,
          split/2,
          splitwith/2,
-         to_integer/1]).
+         to_integer/1,
+         to_number/1]).
 
 %%%-------------------------------------------------------------------
 %%% Internal exports
@@ -167,6 +179,22 @@ first(Pred, [H|T]) ->
     case Pred(H) of
         true  -> H;
         false -> first(Pred, T)
+    end.
+
+    
+%% @spec from_number(Number) -> List
+%%    Number = int() | float()
+%%    List   = string()
+%%
+%% @doc Returns the string representation of a <tt>Number</tt>, integer or
+%% float.
+%% @end 
+from_number(Number) ->
+    case catch integer_to_list(Number) of
+        {'EXIT', _Reason} ->
+            float_to_list(Number);
+        L ->
+            L
     end.
 
 
@@ -377,6 +405,22 @@ to_integer(OctetList) ->
     <<Value:Size/integer>> = list_to_binary(OctetList),
     Value.
 
+
+%% @spec to_number(List) -> Number
+%%    List   = string()
+%%    Number = int() | float()
+%%
+%% @doc Returns the <tt>Number</tt>, integer or float, given the string 
+%% representation.
+%% @end 
+to_number(List) ->                                                       
+    case catch list_to_integer(List) of
+        {'EXIT', _Reason} ->
+            list_to_float(List);
+        I -> 
+            I
+    end.
+                      
 
 %%%===================================================================
 % Internal functions

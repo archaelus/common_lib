@@ -1,9 +1,9 @@
 
 	Common Library overview page
 
-@author Enrique Marcote Peña <mpquique@users.sourceforge.net> [http://www.des.udc.es/~mpquique/]
+@author Enrique Marcote Peña <mpquique_at_users.sourceforge.net> [http://oserl.sourceforge.net/]
 @copyright 2003 - 2004 Enrique Marcote Peña
-@version 1.0
+@version 1.1
 
 @doc This library modules group together some generic functions that might be
 usefull in several contexts.
@@ -13,35 +13,8 @@ functions.</p>
 
 <h2><a name="contents">Contents</a></h2>
 <ol>
-  <li><a href="#known">Known issues</a></li>
   <li><a href="#changes">Changes</a></li>
 </ol>
-
-
-<h2><a name="known">Known issues</a></h2>
-
-<p>If you ever what to regenerate the documentation, don't forget to comment 
-out the line</p>
-
-<table bgcolor="#CCCCCC" width="100%" border="1">
-  <tr>
-    <td>
-<pre>
--define(WHITESPACE(H), H == ?SPACE; H == ?CR; H == ?LF; H == ?TAB).
-</pre>
-    </td>
-  </tr>
-</table>
-
-<p>in <a href="my_string.html">my_string.erl</a> before running</p>
-
-<pre>
-   make docs
-</pre>
-
-Don't know why, really.  Don't forget to leave it uncommented once finished
-with the documentation.
-
 
 <h2><a name="changes">Changes</a></h2>
 

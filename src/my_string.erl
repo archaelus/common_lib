@@ -50,9 +50,9 @@
 %%%
 %%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
-%%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
-%%%         [http://www.des.udc.es/~mpquique/]
-%%% @version 1.0, {23 Sep 2003} {@time}.
+%%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
+%%%         [http://oserl.sourceforge.net/]
+%%% @version 1.1, {23 Sep 2003} {@time}.
 %%% @end
 -module(my_string).
 
@@ -82,6 +82,8 @@
          join/2,
          lowercase/1,
          normalize/1,
+         pop_token/2, 
+         pop_tokens/3,
          replace_chars/3,
          split_by_word/2, 
          strip/2, 
@@ -103,7 +105,6 @@
 -define(TAB,    9).
 
 %% whitespace consists of 'space', 'carriage return', 'line feed' or 'tab'
-%% ***COMMENT OUT*** this line to regerate edocs. Don't know why ???
 -define(WHITESPACE(H), H == ?SPACE; H == ?CR; H == ?LF; H == ?TAB).
 -define(WHITESPACES, [?SPACE, ?CR, ?LF, ?TAB]).
 
@@ -454,6 +455,42 @@ normalize([H|T], Acc) when ?WHITESPACE(H) ->
     normalize(strip(T, left, ?WHITESPACES), [?SPACE|Acc]);
 normalize([H|T], Acc) ->
     normalize(T, [H|Acc]).
+
+
+%% @spec pop_token(String, SeparatorList) -> {Token, RestOfString}
+%%    String = string()
+%%    SeparatorList = string()
+%%    Token = string()
+%%    RestOfString = string()
+%%
+%% @doc Gets the last token in <tt>String</tt>, separated by the
+%% characters in <tt>SeparatorList</tt>.
+%%
+%% @see chop_token/2
+%% @end
+pop_token(String, SeparatorList) ->
+    {Token, Rest} = chop_token(lists:reverse(String), SeparatorList),
+    {lists:reverse(Token), lists:reverse(Rest)}.
+
+
+%% @spec pop_tokens(String, N, SeparatorList) -> {Tokens, RestOfString}
+%%    String = string()
+%%    SeparatorList = string()
+%%    RestOfString = string()
+%%    Tokens = [string()]
+%%    N = int()
+%%
+%% @doc Gets the last <tt>N</tt> tokens in <tt>String</tt>, separated 
+%% by the characters in <tt>SeparatorList</tt>.  If there are less than 
+%% <tt>N</tt> tokens the tuple <tt>{AvailableTokens, "" }</tt> is
+%% returned.
+%%
+%% @see pop_token/2
+%% @see chop_tokens/2
+%% @end
+pop_tokens(String, N, SeparatorList) when N > 0 ->
+    {Tokens, Rest} = chop_tokens(lists:reverse(String), N, SeparatorList),
+    {lists:map(fun(T) -> lists:reverse(T) end, Tokens), lists:reverse(Rest)}.
 
 
 %% @spec replace_chars(String1, Characters, Char) -> String2

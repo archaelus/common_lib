@@ -1,55 +1,35 @@
-# FIXME These variables should be automatically set when compiling
-ERL = erl
-ERLC = erlc
-ETAGS = etags
-EMULATOR = beam
+# ----------------------------------------------------
+# Common Macros
+# ----------------------------------------------------
+include ../common.mk
+
 EBIN = ../ebin
 INCLUDE = ../include
-ESRC = ./
 DOCDIR = ../doc
-RM = rm -f
-INSTALL = /usr/bin/install -c
-INSTALL_DIR = /usr/bin/install -c -d
-INSTALL_DATA = ${INSTALL} -m 644
 
-
-### common_lib use eDoc for documentation, to regenerate update paths as
-### needed!
-COMMON_LIB_APP = ..
-EDOC_APP = /usr/local/lib/erlang/lib/edoc-0.4
-SYNTAX_TOOLS_APP = /usr/local/lib/erlang/lib/syntax_tools-1.3
-
-
-
-# ----------------------------------------------------
-# Release directory specification
-# ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COMMON_LIB_VSN)
-APPNAME = common_lib
-
-RELSYSDIR = $(RELEASE_PATH)/lib/$(APPNAME)-$(VSN)
-
+# preprocess and includes are necessary to allow semicolons in macros.
+EDOC_OPTS = [{title,"Common Library"}, \
+	preprocess, {includes, ["$(INCLUDE)", "$(XMERL_APP)/inc"]}]
 
 # ----------------------------------------------------
 # Target Specs
 # ----------------------------------------------------
-
 EDOC_MODULES = \
 	binary \
 	my_calendar \
 	my_lists \
 	my_string \
-	stats
-
+	stats \
+	xml
 
 MODULES = $(EDOC_MODULES)
 
-HRL_FILES = 
+EXTERNAL_HEADERS = 
 
-INTERNAL_HRL_FILES  = 
+INTERNAL_HEADERS = 
 
 ERL_FILES= $(MODULES:%=%.erl)
+HRL_FILES = 
 
 DOC_TARGET_FILES = $(EDOC_MODULES:%=$(DOCDIR)/%.html)
 TARGET_FILES = $(MODULES:%=$(EBIN)/%.$(EMULATOR))
@@ -66,7 +46,9 @@ ERL_COMPILE_FLAGS += $(DEBUG) -I $(INCLUDE)
 # ----------------------------------------------------
 all:	$(TARGET_FILES)
 
-doc:	$(DOC_TARGET_FILES)
+doc:	
+	$(ERL) -noshell $(EDOC_PATHS) -run edoc_run application \
+		"'$(APPNAME)'" '".."' '$(EDOC_OPTS)' -s erlang halt
 
 opt build: $(TARGET_FILES) 
 
@@ -85,22 +67,16 @@ realclean: clean
 # ----------------------------------------------------
 # Special Build Targets
 # ----------------------------------------------------
-EDOC_PATHS = \
-	-pa $(EDOC_APP)/ebin -pa $(COMMON_LIB_APP)/ebin \
-	-pa $(SYNTAX_TOOLS_APP)/ebin
-
-
 $(EBIN)/%.beam:	%.erl
-	$(ERLC) $(ERL_FLAGS) $(ERL_COMPILE_FLAGS) -o $(EBIN) $<
-
-
-$(DOCDIR)/%.html:	%.erl
-	$(ERL) $(EDOC_PATHS) -s edoc file $< ['{dir,"$(DOCDIR)"}'] -s erlang halt
+	$(ERLC) $(ERL_FLAGS) $(ERL_COMPILE_FLAGS) $(REQUIRED_FLAGS) \
+	$(REQUIRED_PATHS) -o $(EBIN) $<
 
 
 # ----------------------------------------------------
 # Release Target
 # ---------------------------------------------------- 
+RELSYSDIR = $(RELEASE_PATH)/lib/$(APPNAME)-$(VSN)
+
 release_src:
 	$(INSTALL_DATA) $(MODULES:%=%.erl) $(RELSYSDIR)/src
 	$(INSTALL_DATA) Makefile $(RELSYSDIR)/src
@@ -109,3 +85,8 @@ release_src:
 release_spec: opt
 	$(INSTALL_DIR) $(RELSYSDIR)/ebin
 	$(INSTALL_DATA) $(TARGET_FILES) $(RELSYSDIR)/ebin
+
+# ----------------------------------------------------
+# .hrl dependencies
+# ----------------------------------------------------
+$(EBIN)/xml.beam:$(XMERL_APP)/inc/xmerl.hrl

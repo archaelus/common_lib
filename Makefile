@@ -1,12 +1,14 @@
 # ----------------------------------------------------
 # Common Macros
 # ----------------------------------------------------
-include vsn.mk
-VSN = $(COMMON_LIB_VSN)
+include common.mk
 
-APPNAME = common_lib
 SUB_DIRECTORIES = src
-DOCDIR = doc
+
+OTHER_FILES = COPYING Makefile changes.txt common.mk $(APPNAME).pub 
+
+BASE_REL = /var/tmp/$(APPNAME)-$(VSN)
+
 DOC_OPTS = [{title,"Common Library"}]
 
 SPECIAL_TARGETS = 
@@ -17,7 +19,9 @@ all:
 	done
 
 docs:
-	erl -noshell -pa "$(BINDIR)" -run edoc_run application "'$(APPNAME)'" '"."' '$(DOC_OPTS)' -s erlang halt
+	@for d in $(SUB_DIRECTORIES); do \
+		(cd $$d; $(MAKE) doc); \
+	done
 
 clean:
 	@for d in $(SUB_DIRECTORIES); do \
@@ -34,8 +38,6 @@ debug:
 	  	(cd $$d; $(MAKE) DEBUG=-Ddebug=1); \
 	done
 
-BASE_REL = /var/tmp/$(APPNAME)-$(VSN)
-OTHER_FILES = COPYING Makefile vsn.mk $(APPNAME).pub 
 release:
 	mkdir $(BASE_REL)
 	cp -p $(OTHER_FILES) $(BASE_REL)

@@ -1,1 +1,0 @@
-COMMON_LIB_VSN = 1.0
