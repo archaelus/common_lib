@@ -40,6 +40,14 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% <h2>Changes 1.1 -&gt; 1.2</h2>
+%%%
+%%% [10 Dec 2004]
+%%%
+%%% <ul>
+%%%   <li>New function: <a href="#delete-3">delete/3</a> added.</li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
 %%%         [http://oserl.sourceforge.net/]
@@ -65,6 +73,7 @@
 %%%-------------------------------------------------------------------
 -export([asearch/2,
          cut/2, 
+		 delete/3,
          first/2,
          from_number/1,
          has_duplicates/1,
@@ -163,6 +172,31 @@ cut(Suffix, RevPrefix, 0) ->
     {lists:reverse(RevPrefix), Suffix};
 cut([H|T], RevPrefix, N) ->
     cut(T, [H|RevPrefix], N - 1).
+
+
+%% @spec delete(Element, N, TupleList1) -> TupleList2
+%%    Element = term()
+%%    N = int()
+%%    TupleList1 = [tuple()]
+%%    TupleList2 = [tuple()]
+%%
+%% @doc Returns a copy of <tt>TupleList1</tt> where the all the occurrences of 
+%% a tuple whose <tt>N</tt>th element is <tt>Element</tt> is deleted, if 
+%% present.
+%% @end 
+delete(Element, N, TupleList) ->
+	delete(Element, N, TupleList, []).
+
+%% @doc Auxiliary function for delete/3
+%%
+%% @see delete/3
+%% @end 
+delete(_Element, _N, [], Acc) ->
+	lists:reverse(Acc);
+delete(Element, N, [H|T], Acc) when element(N, H) == Element ->
+	delete(Element, N, T, Acc);
+delete(Element, N, [H|T], Acc) ->
+	delete(Element, N, T, [H|Acc]).
 
 
 %% @spec first(Pred, List) -> Element
