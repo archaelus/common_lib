@@ -48,6 +48,12 @@
 %%%   <li>New function: <a href="#delete-3">delete/3</a> added.</li>
 %%% </ul>
 %%%
+%%% [18 Dec 2004]
+%%%
+%%% <ul>
+%%%   <li>New function: <a href="#intersec-2">intersec/2</a> added.</li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
 %%%         [http://oserl.sourceforge.net/]
@@ -73,10 +79,11 @@
 %%%-------------------------------------------------------------------
 -export([asearch/2,
          cut/2, 
-		 delete/3,
+         delete/3,
          first/2,
          from_number/1,
          has_duplicates/1,
+         intersec/2,
          is_deep/1,
          keyindex/3,
          random/2, 
@@ -185,18 +192,18 @@ cut([H|T], RevPrefix, N) ->
 %% present.
 %% @end 
 delete(Element, N, TupleList) ->
-	delete(Element, N, TupleList, []).
+    delete(Element, N, TupleList, []).
 
 %% @doc Auxiliary function for delete/3
 %%
 %% @see delete/3
 %% @end 
 delete(_Element, _N, [], Acc) ->
-	lists:reverse(Acc);
+    lists:reverse(Acc);
 delete(Element, N, [H|T], Acc) when element(N, H) == Element ->
-	delete(Element, N, T, Acc);
+    delete(Element, N, T, Acc);
 delete(Element, N, [H|T], Acc) ->
-	delete(Element, N, T, [H|Acc]).
+    delete(Element, N, T, [H|Acc]).
 
 
 %% @spec first(Pred, List) -> Element
@@ -245,6 +252,32 @@ has_duplicates([H|T]) ->
             true;
         _False ->
             has_duplicates(T)
+    end.
+
+
+%% @spec intersec(List1, List2) -> List3
+%%    List1 = [term()]
+%%    List2 = [term()]
+%%    List3 = [term()]
+%%
+%% @doc Returns the intersection of two lists.  <tt>List3</tt> contains all
+%% elements in <tt>List1</tt> which also belong to <tt>List2</tt>.
+%% @end 
+intersec(List1, List2) ->
+    intersec(List1, List2, []).
+
+%% @doc Auxiliary function for intersec/2
+%%
+%% @see intersec/2
+%% @end 
+intersec([], _List2, Acc) ->
+    lists:reverse(Acc);
+intersec([H|T], List2, Acc) ->
+    case lists:member(H, List2) of
+        true ->
+            intersec(T, List2, [H|Acc]);
+        false ->
+            intersec(T, List2, Acc)
     end.
 
 
