@@ -59,8 +59,8 @@
 %% @doc Computes the combinations of <tt>M</tt> elements taken by
 %% <tt>N</tt> without repetitions.
 %%
-%% <p>This functions exits if <tt>(M < 0)</tt>, <tt>(N < 0)</tt> or 
-%% <tt>(M < N)</tt>.</p>
+%% <p>This functions exits if <tt>(M &lt; 0)</tt>, <tt>(N &lt; 0)</tt> or 
+%% <tt>(M &lt; N)</tt>.</p>
 %% 
 %% @see div_factorial/2
 %% @see factorial/1

@@ -270,10 +270,13 @@ has_duplicates([H|T]) ->
 
 %% @spec hexlist_to_intlist(HexList) -> IntList
 %%    HexList = [Hex]
-%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%    Hex = int()
 %%    IntList = [int()]
 %%
 %% @doc Creates an integer list from an hex string.
+%%
+%% <p>Where <tt>Hex</tt> is 
+%% <tt>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F</tt></p>
 %%
 %% @see intlist_to_hexlist/1
 %% @end 
@@ -310,9 +313,12 @@ intersec([H|T], List2, Acc) ->
 %% @spec intlist_to_hexlist(IntList) -> HexList
 %%    IntList = [int()]
 %%    HexList = [Hex]
-%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%    Hex = int()
 %%
 %% @doc Creates an hex string from an integer list.
+%%
+%% <p>Where <tt>Hex</tt> is <tt>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%% </tt></p>
 %%
 %% @see hexlist_to_intlist/1
 %% @end 
@@ -464,7 +470,7 @@ split([H|T], N, Acc) ->
 
 %% @spec split2(List) -> Chunks
 %%    List = [term()]
-%%    Chunks = [[term(), term()]]
+%%    Chunks = [Chunk]
 %%
 %% @doc Splits a <tt>List</tt> into two elements lists.
 %% <br/><br/>

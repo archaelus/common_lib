@@ -63,13 +63,16 @@
 %%%===================================================================
 %% @spec from_hexlist(HexList) -> Bin
 %%    HexList = [Hex]
-%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
 %%    Bin = binary()
+%%    Hex = int()
 %%
 %% @doc Creates a binary from an hex list.
 %%
-%% @see to_hexlist
-%% @see my_lists:hexlist_to_intlist
+%% <p><tt>Hex</tt> is <tt>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F</tt>
+%% </p>
+%%
+%% @see to_hexlist/1
+%% @see my_lists:hexlist_to_intlist/1
 %% @end 
 from_hexlist(HexList) ->
     list_to_binary(my_lists:hexlist_to_intlist(HexList)).
@@ -78,12 +81,15 @@ from_hexlist(HexList) ->
 %% @spec to_hexlist(Bin) -> HexList
 %%    Bin = binary()
 %%    HexList = [Hex]
-%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%    Hex = int()
 %%
 %% @doc Creates an hex list from a binary.
 %%
-%% @see from_hexlist
-%% @see my_lists:intlist_to_hexlist
+%% <p><tt>Hex</tt> is <tt>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F</tt>
+%% </p>
+%%
+%% @see from_hexlist/1
+%% @see my_lists:intlist_to_hexlist/1
 %% @end 
 to_hexlist(Bin) -> 
     my_lists:intlist_to_hexlist(binary_to_list(Bin)).
