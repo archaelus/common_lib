@@ -52,6 +52,7 @@ How these changes affected individual files is described below.
 2.1  my_string.erl 
 
 - Added the function normalize/1.
+- Added the function join/2.  Written by Per Hedeland.
 
 2.2  my_calendar.erl 
 
