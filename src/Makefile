@@ -20,7 +20,8 @@ EDOC_MODULES = \
 	my_lists \
 	my_string \
 	stats \
-	xml
+	xml \
+	report
 
 MODULES = $(EDOC_MODULES)
 
