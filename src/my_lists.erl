@@ -54,6 +54,16 @@
 %%%   <li>New function: <a href="#intersec-2">intersec/2</a> added.</li>
 %%% </ul>
 %%%
+%%% [21 Dec 2004]
+%%%
+%%% <ul>
+%%%   <li>Functions <a href="#hexlist_to_intlist-1">hexlist_to_intlist/1</a>,
+%%%     <a href="#intlist_to_hexlist-1">intlist_to_hexlist/1</a> and
+%%%     <a href="#split2-1">split2/1</a>.
+%%%   </li>
+%%% </ul>
+%%%
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
 %%%         [http://oserl.sourceforge.net/]
@@ -83,13 +93,16 @@
          first/2,
          from_number/1,
          has_duplicates/1,
+         hexlist_to_intlist/1,
          intersec/2,
+         intlist_to_hexlist/1,
          is_deep/1,
          keyindex/3,
          random/2, 
          random_seq/2,
          search/2,
          split/2,
+         split2/1,
          splitwith/2,
          to_integer/1,
          to_number/1]).
@@ -255,6 +268,19 @@ has_duplicates([H|T]) ->
     end.
 
 
+%% @spec hexlist_to_intlist(HexList) -> IntList
+%%    HexList = [Hex]
+%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%    IntList = [int()]
+%%
+%% @doc Creates an integer list from an hex string.
+%%
+%% @see intlist_to_hexlist/1
+%% @end 
+hexlist_to_intlist(List) ->
+    lists:map(fun(X) -> httpd_util:hexlist_to_integer(X) end, split2(List)).
+
+
 %% @spec intersec(List1, List2) -> List3
 %%    List1 = [term()]
 %%    List2 = [term()]
@@ -279,6 +305,34 @@ intersec([H|T], List2, Acc) ->
         false ->
             intersec(T, List2, Acc)
     end.
+
+
+%% @spec intlist_to_hexlist(IntList) -> HexList
+%%    IntList = [int()]
+%%    HexList = [Hex]
+%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%
+%% @doc Creates an hex string from an integer list.
+%%
+%% @see hexlist_to_intlist/1
+%% @end 
+intlist_to_hexlist(List) -> 
+    intlist_to_hexlist(List, []).
+
+%% @doc Auxiliary function for intlist_to_hexlist/1
+%%
+%% @see intlist_to_hexlist/1
+%% @end 
+intlist_to_hexlist([], Acc) ->
+    lists:reverse(Acc);
+intlist_to_hexlist([0|T], Acc) ->
+    intlist_to_hexlist(T, [$0,$0|Acc]);
+intlist_to_hexlist([H|T], Acc) when H < 16 ->
+    [A] = erlang:integer_to_list(H, 16),
+    intlist_to_hexlist(T, [A,$0|Acc]);
+intlist_to_hexlist([H|T], Acc) ->
+    [A,B] = erlang:integer_to_list(H, 16),
+    intlist_to_hexlist(T, [B,A|Acc]).
 
 
 %% @spec is_deep(List) -> bool()
@@ -406,6 +460,29 @@ split(List, 0, Acc) ->
     {lists:reverse(Acc), List};
 split([H|T], N, Acc) ->
     split(T, N-1, [H|Acc]).
+
+
+%% @spec split2(List) -> Chunks
+%%    List = [term()]
+%%    Chunks = [[term(), term()]]
+%%
+%% @doc Splits a <tt>List</tt> into two elements lists.
+%% <br/><br/>
+%% <tt>split2("2AF1B3") == ["2A", "F1", "B3"]</tt>
+%% @end
+split2(List) ->
+    split2(List, []).
+
+%% @doc Auxiliary function for split2/1
+%%
+%% @see split2/1
+%% @end 
+split2([], Acc) ->
+    lists:reverse(Acc);
+split2([H1,H2|T], Acc) ->
+    split2(T, [[H1,H2]|Acc]);
+split2([H|T], Acc) ->
+    split2(T, [[H]|Acc]).
 
 
 %% @spec splitwith(Pred, List) -> {List1, List2}

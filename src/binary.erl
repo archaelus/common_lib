@@ -18,6 +18,17 @@
 %%%
 %%% <p>My own binary-manipulation functions.</p>
 %%%
+%%% <h2>Changes 1.1 -&gt; 1.2</h2>
+%%%
+%%% [21 Dec 2004]
+%%%
+%%% <ul>
+%%%   <li>Functions <a href="#from_hexlist-1">from_hexlist/1</a> and 
+%%%     <a href="#to_hexlist-1">to_hexlist/1</a> added.
+%%%   </li>
+%%% </ul>
+%%%
+%%%
 %%% @copyright 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %%%         [http://www.des.udc.es/~mpquique/]
@@ -32,7 +43,7 @@
 %%%-------------------------------------------------------------------
 %%% External exports
 %%%-------------------------------------------------------------------
--export([take_until/3]).
+-export([from_hexlist/1, to_hexlist/1, take_until/3]).
 
 %%%-------------------------------------------------------------------
 %%% Internal exports
@@ -50,6 +61,34 @@
 %%%===================================================================
 %%% External functions
 %%%===================================================================
+%% @spec from_hexlist(HexList) -> Bin
+%%    HexList = [Hex]
+%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%    Bin = binary()
+%%
+%% @doc Creates a binary from an hex list.
+%%
+%% @see to_hexlist
+%% @see my_lists:hexlist_to_intlist
+%% @end 
+from_hexlist(HexList) ->
+    list_to_binary(my_lists:hexlist_to_intlist(HexList)).
+
+
+%% @spec to_hexlist(Bin) -> HexList
+%%    Bin = binary()
+%%    HexList = [Hex]
+%%    Hex = $1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+%%
+%% @doc Creates an hex list from a binary.
+%%
+%% @see from_hexlist
+%% @see my_lists:intlist_to_hexlist
+%% @end 
+to_hexlist(Bin) -> 
+    my_lists:intlist_to_hexlist(binary_to_list(Bin)).
+
+
 %% @spec take_until(Binary, Pattern, Size) -> Result
 %%    Binary       = bin()
 %%    Pattern      = bin()
@@ -106,5 +145,3 @@ take_until(Binary, Pattern, Size, Acc) ->
 %%%===================================================================
 %%% Internal functions
 %%%===================================================================
-
-
