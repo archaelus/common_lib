@@ -301,10 +301,9 @@ aiequal(String, Pattern, S, I, D, T) ->
 %% @see chop_tokens/3
 %% @end
 chop_token(String, SeparatorList) ->
-    Stripped = strip(String, left, SeparatorList),
     F = fun(X) -> not lists:member(X, SeparatorList) end,
-    {Token, RestOfString} = lists:splitwith(F, Stripped),
-    {Token, strip(RestOfString, left, SeparatorList)}.
+    {Token, Rest} = lists:splitwith(F, strip(String, left, SeparatorList)),
+    {Token, strip(Rest, left, SeparatorList)}.
 
 
 %% @spec chop_tokens(String, N, SeparatorList) -> {Tokens, RestOfString}
