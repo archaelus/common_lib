@@ -30,6 +30,14 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% [12 Dec 2004]
+%%%
+%%% <ul>
+%%%   <li>New functions: <a href="#day_of_next_week_to_date-1">
+%%%     day_of_next_week_to_date/1</a> added.
+%%%   </li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %%%         [http://www.des.udc.es/~mpquique/]
@@ -48,6 +56,7 @@
          day/1,
          day/3,
          day_of_current_week_to_date/1, 
+         day_of_next_week_to_date/1, 
          expired/1, 
          then/1, 
          time_since/1, 
@@ -119,6 +128,22 @@ day_of_current_week_to_date(DayNumber) ->
     CurrentDayOfWeek = calendar:day_of_the_week(date()),
     calendar:gregorian_days_to_date(
       CurrentDayNumber + DayNumber - CurrentDayOfWeek).
+
+
+%% @spec day_of_next_week_to_date(DayNumber) -> {Year, Month, Day}
+%%    DayNumber = int()
+%%    Year      = int()
+%%    Month     = int()
+%%    Day       = int()
+%%
+%% @doc Returns the date for a given day of the next week.
+%% @end
+day_of_next_week_to_date(DayNumber) ->
+    CurrentDayNumber = calendar:date_to_gregorian_days(date()),
+    CurrentDayOfWeek = calendar:day_of_the_week(date()),
+    calendar:gregorian_days_to_date(
+      CurrentDayNumber + DayNumber + 7 - CurrentDayOfWeek).
+
 
 %% @spec expired(Time) -> true | false
 %%    Time = {MegaSecs, Secs, MicroSecs}
