@@ -57,6 +57,13 @@
 %%%   <a href="#aiequal-6">aiequal/6</a> added.</li>
 %%% </ul>
 %%%
+%%% [1 Mar 2005]
+%%%
+%%% <ul>
+%%%   <li><tt>RestOfString</tt> is left stripped in <a href="#chop_token-2">
+%%%     chop_token/2</a>.</li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
 %%%         [http://oserl.sourceforge.net/]
@@ -286,13 +293,18 @@ aiequal(String, Pattern, S, I, D, T) ->
 %% @doc Gets the first token in <tt>String</tt>, separated by the
 %% characters in <tt>SeparatorList</tt>.
 %%
+%% <p><tt>RestOfString</tt> is left stripped, all leading characters in
+%% <tt>SeparatorList</tt> are removed from it.</p>
+%%
 %% @see string:tokens/2
 %% @see string:sub_word/2
 %% @see chop_tokens/3
 %% @end
 chop_token(String, SeparatorList) ->
     Stripped = strip(String, left, SeparatorList),
-    lists:splitwith(fun(X) -> not lists:member(X,SeparatorList) end, Stripped).
+    F = fun(X) -> not lists:member(X, SeparatorList) end,
+    {Token, RestOfString} = lists:splitwith(F, Stripped),
+    {Token, strip(RestOfString, left, SeparatorList)}.
 
 
 %% @spec chop_tokens(String, N, SeparatorList) -> {Tokens, RestOfString}
