@@ -9,7 +9,7 @@ DOCDIR = ../doc
 
 # preprocess and includes are necessary to allow semicolons in macros.
 EDOC_OPTS = [{title,"Common Library"}, \
-	preprocess, {includes, ["$(INCLUDE)", "$(XMERL_APP)/inc"]}]
+	preprocess, {includes, ["$(INCLUDE)", "$(XMERL_APP)/include"]}]
 
 # ----------------------------------------------------
 # Target Specs
@@ -89,4 +89,4 @@ release_spec: opt
 # ----------------------------------------------------
 # .hrl dependencies
 # ----------------------------------------------------
-$(EBIN)/xml.beam:$(XMERL_APP)/inc/xmerl.hrl
+$(EBIN)/xml.beam:$(XMERL_APP)/include/xmerl.hrl
