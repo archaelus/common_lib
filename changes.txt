@@ -1,4 +1,4 @@
-changes.txt - Common Library Version 1.0                     May 12, 2004
+changes.txt - Common Library Version 1.1                     Nov 09, 2004
 
                     http://sourceforge.net/projects/oserl/
 
@@ -17,6 +17,7 @@ Contents
 2.1  my_string.erl
 2.2  my_calendar.erl
 2.3  my_lists.erl
+3.   Changes 1.0 -> 1.1
 
 ---
 
@@ -63,5 +64,7 @@ How these changes affected individual files is described below.
 - New functions: first/2, is_deep/1, keyindex/3 and splitwith/2.
 
 
+3.   Changes 1.0 -> 1.1
 
-
+- Remove R10B warnings related to unused vars.
+- New module xml.erl added.
