@@ -40,6 +40,14 @@
 %%%   <li>Added the function <a href="#normalize-1">normalize/1</a>.</li>
 %%% </ul>
 %%%
+%%% [11 Jun 2004]
+%%%
+%%% <ul>
+%%%   <li>Added the function <a href="#join-2">join/2</a>.  Written by
+%%%     Per Hedeland.
+%%%   </li>
+%%% </ul>
+%%%
 %%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
@@ -71,8 +79,9 @@
          is_hex/1,
          is_atime/1,
          is_rtime/1,
+         join/2,
          lowercase/1,
-		 normalize/1,
+         normalize/1,
          replace_chars/3,
          split_by_word/2, 
          strip/2, 
@@ -393,6 +402,22 @@ is_rtime(_String) ->
     false.
 
 
+%% @spec join(List, Sep) -> String
+%%    List   = [Token]
+%%    Token  = string()
+%%    Sep    = string()
+%%    String = string()
+%%
+%% @doc The opposite of <tt>string:tokens/2</tt> (sort of).
+%%
+%% <p>Written by Per Hedeland at <a href="http://www.erlang.org/ml-archive/erlang-questions/">erlang-questions</a>.</p>
+%% @end 
+join(List, Sep) ->
+    lists:foldl(fun(A, "") -> A;
+                   (A, Acc) -> Acc ++ Sep ++ A
+                end, "", List).
+
+
 %% @spec lowercase(String) -> LString
 %%    String  = string()
 %%    LString = string()
@@ -416,7 +441,7 @@ lowercase(String) ->
 %% @doc Returns a new <tt>NString</tt> where spaces are normalized.
 %% @end
 normalize(String) ->
-	normalize(strip(String, ?WHITESPACES), []).
+    normalize(strip(String, ?WHITESPACES), []).
 
 
 %% @doc Auxiliary function for normalize/1
@@ -424,12 +449,12 @@ normalize(String) ->
 %% @see normalize/1
 %% @end 
 normalize([], Acc) ->
-	lists:reverse(Acc);
+    lists:reverse(Acc);
 normalize([H|T], Acc) when ?WHITESPACE(H) ->
-	normalize(strip(T, left, ?WHITESPACES), [?SPACE|Acc]);
+    normalize(strip(T, left, ?WHITESPACES), [?SPACE|Acc]);
 normalize([H|T], Acc) ->
-	normalize(T, [H|Acc]).
-	
+    normalize(T, [H|Acc]).
+
 
 %% @spec replace_chars(String1, Characters, Char) -> String2
 %%    String1 = string()
