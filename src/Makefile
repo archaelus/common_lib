@@ -21,7 +21,8 @@ EDOC_MODULES = \
 	my_string \
 	stats \
 	xml \
-	report
+	report \
+	mnesia_seq
 
 MODULES = $(EDOC_MODULES)
 
@@ -91,3 +92,4 @@ release_spec: opt
 # .hrl dependencies
 # ----------------------------------------------------
 $(EBIN)/xml.beam:$(XMERL_APP)/include/xmerl.hrl
+$(EBIN)/mnesia_seq.beam:../include/mnesia_seq.hrl
