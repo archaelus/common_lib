@@ -241,7 +241,7 @@ keyindex(Key, N, TupleList) ->
 %%
 %% @see keyindex/3
 %% @end 
-keyindex(Key, N, [H|T], Index) when element(N, H) == Key ->
+keyindex(Key, N, [H|_], Index) when element(N, H) == Key ->
     Index;
 keyindex(Key, N, [_|T], Index) ->
     keyindex(Key, N, T, Index + 1).
@@ -266,7 +266,7 @@ random(Max, Length) ->
 %%
 %% @see random/2
 %% @end
-random(Max, 0, List) ->
+random(_Max, 0, List) ->
     List;
 random(Max, Length, List) ->
     random(Max, Length - 1, [random:uniform(Max)|List]).
@@ -305,7 +305,7 @@ random_seq(Max, Length) ->
 %%   <li><tt>Pred = fun(X) -> bool()</tt></li>
 %% </ul>
 %% @end
-search(Pred, []) ->
+search(_Pred, []) ->
     false;
 search(Pred, [H|T]) ->
     case Pred(H) of
@@ -363,7 +363,7 @@ splitwith(Pred, L) ->
 %%
 %% @see splitwith/2
 %% @end 
-splitwith(Pred, [], L1, L2) ->
+splitwith(_Pred, [], L1, L2) ->
     {lists:reverse(L1), lists:reverse(L2)};
 splitwith(Pred, [H|T], L1, L2) ->
     case Pred(H) of
@@ -437,7 +437,7 @@ to_number(List) ->
 %% @see random_add/3
 %% @see random_seq/2
 %% @end
-random_del(Max, 0, List) ->
+random_del(_Max, 0, List) ->
     List;
 random_del(Max, Count, List1) ->
     List2 = lists:delete(random:uniform(Max), List1),
@@ -452,7 +452,7 @@ random_del(Max, Count, List1) ->
 %% @see random_del/3
 %% @see random_seq/2
 %% @end
-random_add(Max, 0, List) ->
+random_add(_Max, 0, List) ->
     List;
 random_add(Max, Count, List) ->
     Element = random:uniform(Max),
