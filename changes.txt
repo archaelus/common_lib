@@ -21,6 +21,7 @@ Contents
 3.1  my_lists.erl
 4.   Changes 1.1 -> 1.2
 4.1  my_calendar.erl
+4.2  my_string.erl
 
 ---
 
@@ -87,3 +88,10 @@ How these changes affected individual files is described below.
 4.1  my_calendar.erl
 
 - week/3 fixed.
+
+4.2  my_string.erl
+
+- Functions aiequal/2 and aiequal/6 added.
+- RestOfString is left stripped in chop_token/2
+
+
