@@ -13,12 +13,39 @@ functions.</p>
 
 <h2><a name="contents">Contents</a></h2>
 <ol>
+  <li><a href="#known">Known issues</a></li>
   <li><a href="#changes">Changes</a>
     <ol>
       <li><a href="#changes0_1-0_2">Changes 0.1 -&gt; 0.2</a></li>
+      <li><a href="#changes0_2-0_3">Changes 0.2 -&gt; 0.3</a></li>
     </ol>
   </li>
 </ol>
+
+
+<h2><a name="known">Known issues</a></h2>
+
+<p>If you ever what to regenerate the documentation, don't forget to comment 
+out the line</p>
+
+<table bgcolor="#CCCCCC" width="100%" border="1">
+  <tr>
+    <td>
+<pre>
+-define(WHITESPACE(H), H == ?SPACE; H == ?CR; H == ?LF; H == ?TAB).
+</pre>
+    </td>
+  </tr>
+</table>
+
+<p>in <a href="my_string.html">my_string.erl</a> before running</p>
+
+<pre>
+   make docs
+</pre>
+
+Don't know why, really.  Don't forget to leave it uncommented once finished
+with the documentation.
 
 
 <h2><a name="changes">Changes</a></h2>
@@ -27,6 +54,13 @@ functions.</p>
 
 <ul>
   <li>New <a href="binary.html">binary.erl</a> module.</li>
+  <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
+</ul>
+
+<h2><a name="changes0_2-0_3">Changes 0.2 -&gt; 0.3</a></h2>
+
+<ul>
+  <li>Now shipped under the GNU Lesser General Public License.</li>
   <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
 </ul>
 

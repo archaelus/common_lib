@@ -13,6 +13,8 @@ Contents
 1.   Changes 0.1 -> 0.2
 1.1  binary.erl
 1.2  my_string.erl
+2.   Changes 0.2 -> 0.3
+2.1  my_string.erl
 
 
 ---
@@ -35,3 +37,20 @@ How these changes affected individual files is described below.
 
 - New functions is_hex/1 and is_dec/1 added.
 - Functions is_atime/1 and is_rtime/1 added.
+
+
+2.   Changes 0.2 -> 0.3
+
+- Now shipped under the GNU Lesser General Public License.
+- New functions added to my_string.erl
+
+How these changes affected individual files is described below.
+
+
+2.1  my_string.erl 
+
+- Added the function normalize/1.
+
+
+
+
