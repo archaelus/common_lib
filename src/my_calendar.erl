@@ -38,10 +38,18 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% <h2>Changes 1.1 -&gt; 1.2</h2>
+%%%
+%%% [24 Feb 2005]
+%%%
+%%% <ul>
+%%%   <li><a href="#week-3">week/3</a> fixed.</li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %%%         [http://www.des.udc.es/~mpquique/]
-%%% @version 1.0, {19 Feb 2003} {@time}.
+%%% @version 1.2, {19 Feb 2003} {@time}.
 %%% @end
 -module(my_calendar).
 
@@ -252,8 +260,8 @@ week(Year, Month, Day) ->
     DaysUntil1stSunday = 7 - calendar:day_of_the_week(Year, 1, 1) + 1,
     DaysSince1stSunday = day(Year, Month, Day) - DaysUntil1stSunday,
     if
-        (DaysSince1stSunday rem 7) > 0 -> (DaysSince1stSunday div 7) + 2;
-        true                           -> (DaysSince1stSunday div 7) + 1
+        (DaysSince1stSunday rem 7) > 0 -> (DaysSince1stSunday div 7) + 1;
+        true                           -> (DaysSince1stSunday div 7)
     end.
 
 
