@@ -1,4 +1,4 @@
-changes.txt - Common Library Version 0.2                     February 18, 2004
+changes.txt - Common Library Version 0.2                     March 01, 2004
 
                     http://sourceforge.net/projects/oserl/
 
