@@ -77,7 +77,7 @@
 %% @doc Returns the day number on current year for today.
 %% @end 
 day() ->
-    {Date, Time} = calendar:local_time(),
+    {Date, _Time} = calendar:local_time(),
     day(Date).
 
 
@@ -199,7 +199,7 @@ time_until({MegaSecs, Secs, MicroSecs}) ->
 %% @doc Returns the week number on current year for today.
 %% @end 
 week() ->
-    {Date, Time} = calendar:local_time(),
+    {Date, _Time} = calendar:local_time(),
     week(Date).
 
 
