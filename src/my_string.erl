@@ -1,18 +1,18 @@
 %%%
 % Copyright (C) 2003 - 2004 Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %
-% This program is free software; you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation; either version 2 of the License, or
-% (at your option) any later version.
+% This library is free software; you can redistribute it and/or
+% modify it under the terms of the GNU Lesser General Public
+% License as published by the Free Software Foundation; either
+% version 2.1 of the License, or (at your option) any later version.
 %
-% This program is distributed in the hope that it will be useful,
+% This library is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
 %
-% You should have received a copy of the GNU General Public License
-% along with this program; if not, write to the Free Software
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; if not, write to the Free Software
 % Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 %%
 
@@ -32,6 +32,15 @@
 %   <li>Functions <a href="#is_atime-1">is_atime/1</a> and 
 %     <a href="#is_rtime-1">is_rtime/1</a> added.
 %   </li>
+% </ul>
+%
+%
+% <h2>Changes 0.2 -&gt; 0.3</h2>
+%
+% [17 Mar 2004]
+%
+% <ul>
+%   <li>Added the function <a href="#normalize-1">normalize/1</a>.</li>
 % </ul>
 %
 %
@@ -67,6 +76,7 @@
          is_atime/1,
          is_rtime/1,
          lowercase/1,
+		 normalize/1,
          replace_chars/3,
          split_by_word/2, 
          strip/2, 
@@ -81,6 +91,16 @@
 %%%-------------------------------------------------------------------
 % Macros
 %%--------------------------------------------------------------------
+%% These macros were borrowed from xmerl.hrl
+-define(SPACE, 32).
+-define(CR,    13).
+-define(LF,    10).
+-define(TAB,    9).
+
+%% whitespace consists of 'space', 'carriage return', 'line feed' or 'tab'
+%% comment out this line to regerate edocs. Don't know why ???
+-define(WHITESPACE(H), H == ?SPACE; H == ?CR; H == ?LF; H == ?TAB).
+-define(WHITESPACES, [?SPACE, ?CR, ?LF, ?TAB]).
 
 %%%-------------------------------------------------------------------
 % Records
@@ -322,8 +342,8 @@ is_hex(_String) ->
 % @spec is_atime(String) -> bool()
 %    String = string()
 %
-% @doc Checks if String is a representacion of an absolute time value in the
-% format "YYMMDDhhmmsstnnp" where
+% @doc Checks if <tt>String</tt> is a representacion of an absolute time 
+% value, given in the format "YYMMDDhhmmsstnnp".  Where
 %
 % <dl>
 %   <dt>YY</dt><dd>00 - 99</dd>
@@ -376,8 +396,8 @@ is_atime(_String) ->
 % @spec is_rtime(String) -> bool()
 %    String = string()
 %
-% @doc Checks if String is a representacion of a relative time value in the
-% format "YYMMDDhhmmsstnnp" where
+% @doc Checks if <tt>String</tt> is a representacion of a relative time value,
+% given in the format "YYMMDDhhmmsstnnp".  Where
 %
 % <dl>
 %   <dt>YY</dt><dd>00 - 99</dd>
@@ -440,6 +460,37 @@ lowercase(String) ->
               end,
     lists:map(ToLower, String).
 
+
+%%%
+% @spec normalize(String) -> NString
+%    String  = string()
+%    NString = string()
+%
+% @doc Returns a new <tt>NString</tt> where spaces are normalized.
+% @end
+%
+% %@see
+% %@equiv
+%%
+normalize(String) ->
+	normalize(strip(String, ?WHITESPACES), []).
+
+
+%%%
+% @doc Auxiliary function for normalize/1
+%
+% @see normalize/1
+% @end 
+%%
+normalize([], Acc) ->
+	lists:reverse(Acc);
+
+normalize([H|T], Acc) when ?WHITESPACE(H) ->
+	normalize(strip(T, left, ?WHITESPACES), [?SPACE|Acc]);
+
+normalize([H|T], Acc) ->
+	normalize(T, [H|Acc]).
+	
 
 %%%
 % @spec replace_chars(String1, Characters, Char) -> String2
