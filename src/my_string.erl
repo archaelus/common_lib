@@ -48,6 +48,14 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% <h2>Changes 1.0 -&gt; 1.1</h2>
+%%%
+%%% [31 Jan 2005]
+%%%
+%%% <ul>
+%%%   <li>Functions <a href="#aiequal-2">aiequal/2</a> and 
+%%%   <a href="#aiequal-6">aiequal/6</a> added.</li>
+%%% </ul>
 %%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
@@ -73,6 +81,8 @@
 %%%-------------------------------------------------------------------
 -export([aequal/2,
          aequal/6,
+         aiequal/2,
+         aiequal/6,
          chop_token/2, 
          chop_tokens/3,
          is_dec/1,
@@ -120,7 +130,7 @@
 %%    Pattern = string()
 %%    Result = true | approximate | false
 %%
-%% @doc Approximate matching of strings.  Returs <tt>true</tt> if
+%% @doc Approximate matching of strings.  Returns <tt>true</tt> if
 %% <tt>String1</tt> is equal to <tt>Pattern</tt> allowing 1 error
 %% (substitution, insertion, deletion or transposition).
 %%
@@ -158,7 +168,7 @@ aequal(String, Pattern) ->
 %%    Trans = int()
 %%    Result = true | approximate | false
 %%
-%% @doc Approximate matching of strings.  Returs <tt>true</tt> if
+%% @doc Approximate matching of strings.  Returns <tt>true</tt> if
 %% <tt>String</tt> is equal to <tt>Pattern</tt> allowing 
 %% <tt>Subs</tt> substitution errors, <tt>Ins</tt> insertion errors,
 %% <tt>Dels</tt> deletion errors and <tt>Trans</tt> transposition
@@ -223,6 +233,48 @@ aequal(String, Pattern, S, I, D, T) ->
                     approximate
             end
     end.
+
+
+%% @spec aiequal(String1, Pattern) -> Result
+%%    String1 = string()
+%%    Pattern = string()
+%%    Result = true | approximate | false
+%%
+%% @doc Approximate matching of strings.  Case insensitive version of
+%% <a href="#aequal-2">aequal/2</a>.  Returns <tt>true</tt> if <tt>String1</tt>
+%% is equal to <tt>Pattern</tt> allowing 1 error (substitution, insertion, 
+%% deletion or transposition).
+%%
+%% <p><tt>&gt; my_string:aequal("heLLo", "helo").<br/>
+%% approximate
+%% </tt></p>
+%%
+%% @see aequal/2
+%% @end
+aiequal(String, Pattern) ->
+    aequal(lowercase(String), lowercase(Pattern)).
+
+
+%% @spec aiequal(String, Pattern, Subs, Ins, Dels, Trans) -> Result
+%%    String = string()
+%%    Pattern = string()
+%%    Subs = int() 
+%%    Ins = int()
+%%    Dels = int()
+%%    Trans = int()
+%%    Result = true | approximate | false
+%%
+%% @doc Approximate matching of strings.  Case insensitive version of
+%% <a href="#aequal-6">aequal/6</a>.  Returns <tt>true</tt> if
+%% <tt>String</tt> is equal to <tt>Pattern</tt> allowing 
+%% <tt>Subs</tt> substitution errors, <tt>Ins</tt> insertion errors,
+%% <tt>Dels</tt> deletion errors and <tt>Trans</tt> transposition
+%% errors.
+%%
+%% @see aequal/6
+%% @end
+aiequal(String, Pattern, S, I, D, T) ->
+    aequal(lowercase(String), lowercase(Pattern), S, I, D, T).
 
 
 %% @spec chop_token(String, SeparatorList) -> {Token, RestOfString}
