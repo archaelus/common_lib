@@ -7,7 +7,7 @@
 <body bgcolor="white">
 <h1>Change Log</h1>
 <p>Copyright © 2003 - 2004 Enrique Marcote Peña</p>
-<p><b>Version:</b> 0.2 alpha
+<p><b>Version:</b> 1.0
 </p>
 <p><b>Authors:</b> Enrique Marcote Peña (<a href="mailto:mpquique@udc.es"><tt>mpquique@udc.es</tt></a>) [<em>web site:</em> <tt><a href="http://www.des.udc.es/~mpquique/">http://www.des.udc.es/~mpquique/</a></tt>].</p>
 
@@ -19,9 +19,11 @@
       <li><a href="#changes0_1-0_2-my_string">my_string.erl</a></li>
     </ol> 
   </li>
-  <li><a href="#changes0_2-0_3">Changes 0.2 -&gt; 0.3</a>
+  <li><a href="#changes0_2-1_0">Changes 0.2 -&gt; 1.0</a>
     <ol>
-      <li><a href="#changes0_2-0_3-my_string">my_string.erl</a></li>
+      <li><a href="#changes0_2-1_0-my_string">my_string.erl</a></li>
+      <li><a href="#changes0_2-1_0-my_calendar">my_calendar.erl</a></li>
+      <li><a href="#changes0_2-1_0-my_lists">my_lists.erl</a></li>
     </ol> 
   </li>
 </ol>
@@ -55,20 +57,42 @@
 </ul>
 
 
-<h2><a name="changes0_2-0_3">Changes 0.2 -&gt; 0.3</a></h2>
+<h2><a name="changes0_2-1_0">Changes 0.2 -&gt; 1.0</a></h2>
 
 <ul>
   <li>Now shipped under the GNU Lesser General Public License.</li>
   <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
+  <li>New functions added to <a href="my_calendar.html">my_calendar.erl</a>
+  <li>New functions added to <a href="my_lists.html">my_lists.erl</a>
+  </li>
 </ul>
 
 <p>How these changes affected individual files is described below.</p>
 
 
-<h3><a name="changes0_2-0_3-my_string">my_string.erl</a></h3>
+<h3><a name="changes0_2-1_0-my_string">my_string.erl</a></h3>
 
 <ul>
   <li>Added the function <a href="my_string.html#normalize-1">normalize/1</a>.
+  </li>
+</ul>
+
+<h3><a name="changes0_2-1_0-my_calendar">my_calendar.erl</a></h3>
+
+<ul>
+  <li>New functions: <a href="#day-0">day/0</a>, 
+    <a href="#day-1">day/1</a>, <a href="#day-3">day/3</a>, 
+    <a href="#week-0">week/0</a>, <a href="#week-1">week/1</a> and 
+    <a href="#week-3">week/3</a>.
+  </li>
+</ul>
+
+<h3><a name="changes0_2-1_0-my_lists">my_lists.erl</a></h3>
+
+<ul>
+  <li>New functions: <a href="#first-2">first/2</a>, 
+    <a href="#is_deep-1">is_deep/1</a>, <a href="#keyindex-3">keyindex/3</a> 
+    and <a href="#splitwith-2">splitwith/2</a>.
   </li>
 </ul>
 

@@ -1,4 +1,4 @@
-changes.txt - Common Library Version 0.2                     March 01, 2004
+changes.txt - Common Library Version 1.0                     May 12, 2004
 
                     http://sourceforge.net/projects/oserl/
 
@@ -13,9 +13,10 @@ Contents
 1.   Changes 0.1 -> 0.2
 1.1  binary.erl
 1.2  my_string.erl
-2.   Changes 0.2 -> 0.3
+2.   Changes 0.2 -> 1.0
 2.1  my_string.erl
-
+2.2  my_calendar.erl
+2.3  my_lists.erl
 
 ---
 
@@ -32,17 +33,18 @@ How these changes affected individual files is described below.
 
 - Created.
 
-
 1.2  my_string.erl 
 
 - New functions is_hex/1 and is_dec/1 added.
 - Functions is_atime/1 and is_rtime/1 added.
 
 
-2.   Changes 0.2 -> 0.3
+2.   Changes 0.2 -> 1.0
 
 - Now shipped under the GNU Lesser General Public License.
 - New functions added to my_string.erl
+- New functions added to my_calendar.erl
+- New functions added to my_lists.erl
 
 How these changes affected individual files is described below.
 
@@ -50,6 +52,14 @@ How these changes affected individual files is described below.
 2.1  my_string.erl 
 
 - Added the function normalize/1.
+
+2.2  my_calendar.erl 
+
+- New functions: day/0, day1, day/3, week/0, week/1 and week/3.
+
+2.3  my_lists.erl 
+
+- New functions: first/2, is_deep/1, keyindex/3 and splitwith/2.
 
 
 

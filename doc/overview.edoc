@@ -3,7 +3,7 @@
 
 @author Enrique Marcote Peña <mpquique@users.sourceforge.net> [http://www.des.udc.es/~mpquique/]
 @copyright 2003 - 2004 Enrique Marcote Peña
-@version 0.2
+@version 1.0
 
 @doc This library modules group together some generic functions that might be
 usefull in several contexts.
@@ -14,12 +14,7 @@ functions.</p>
 <h2><a name="contents">Contents</a></h2>
 <ol>
   <li><a href="#known">Known issues</a></li>
-  <li><a href="#changes">Changes</a>
-    <ol>
-      <li><a href="#changes0_1-0_2">Changes 0.1 -&gt; 0.2</a></li>
-      <li><a href="#changes0_2-0_3">Changes 0.2 -&gt; 0.3</a></li>
-    </ol>
-  </li>
+  <li><a href="#changes">Changes</a></li>
 </ol>
 
 
@@ -50,19 +45,4 @@ with the documentation.
 
 <h2><a name="changes">Changes</a></h2>
 
-<h3><a name="changes0_1-0_2">Changes 0.1 -&gt; 0.2</a></h3>
-
-<ul>
-  <li>New <a href="binary.html">binary.erl</a> module.</li>
-  <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
-</ul>
-
-<h2><a name="changes0_2-0_3">Changes 0.2 -&gt; 0.3</a></h2>
-
-<ul>
-  <li>Now shipped under the GNU Lesser General Public License.</li>
-  <li>New functions added to <a href="my_string.html">my_string.erl</a></li>
-</ul>
-
-<p>How these changes affected individual files is described 
-<a href="changes.html">here</a>.</p>
+<p>See changes log <a href="changes.html">here</a>.</p>
