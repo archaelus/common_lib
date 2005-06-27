@@ -22,6 +22,7 @@ Contents
 4.   Changes 1.1 -> 1.2
 4.1  my_calendar.erl
 4.2  my_string.erl
+4.3  my_lists.erl
 
 ---
 
@@ -94,4 +95,8 @@ How these changes affected individual files is described below.
 - Functions aiequal/2 and aiequal/6 added.
 - RestOfString is left stripped in chop_token/2
 
+
+4.3  my_lists.erl
+
+- Function ukeymerge/3 implemented.
 
