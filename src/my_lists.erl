@@ -63,6 +63,12 @@
 %%%   </li>
 %%% </ul>
 %%%
+%%% [27 Jun 2005]
+%%%
+%%% <ul>
+%%%   <li>Function <a href="#ukeymerge-3">ukeymerge/3</a> implemented.</li>
+%%% </ul>
+%%%
 %%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique_at_users.sourceforge.net>
@@ -105,7 +111,8 @@
          split2/1,
          splitwith/2,
          to_integer/1,
-         to_number/1]).
+         to_number/1,
+         ukeymerge/3]).
 
 %%%-------------------------------------------------------------------
 %%% Internal exports
@@ -570,7 +577,51 @@ to_number(List) ->
         I -> 
             I
     end.
-                      
+
+
+%% @spec ukeymerge(N, List1, List2) -> List3
+%%    N = int()
+%%    List1 = [tuple()]
+%%    List2 = [tuple()]
+%%    List3 = [tuple()]
+%%
+%% @doc Returns the sorted list formed by merging <tt>List1</tt> and
+%% <tt>List2</tt> while removing consecutive elements with the same key.  The
+%% merge is performed on the <tt>N</tt>th element of each tuple.  Both 
+%% <tt>List1</tt> and <tt>List2</tt> must be key-sorted prior to evaluating 
+%% this function; otherwise the result will be undefined.   When elements in 
+%% the input lists have the same key, element from <tt>List1</tt> are picked
+%% before elements from <tt>List2</tt>  (this how I expected lists:ukeymerge/3
+%% to work).
+%%
+%% <pre>
+%% 1> lists:ukeymerge(1, [{a, 1},{b, 1},{d, 1}], [{a, 2},{b, 2},{c, 2}]).
+%% [{a,1},{a,2},{b,1},{b,2},{c,2},{d,1}]
+%% 2> my_lists:ukeymerge(1, [{a, 1},{b, 1},{d, 1}], [{a, 2},{b, 2},{c, 2}]).
+%% [{a,1},{b,1},{c,2},{d,1}]
+%% </pre>
+%% 
+%% @end 
+ukeymerge(N, List1, List2) ->
+    ukeymerge(N, List1, List2, []).
+
+%% @doc Auxiliary function for ukeymerge/3
+%%
+%% @see ukeymerge/3
+%% @end 
+ukeymerge(_N, [], List2, MergedList) ->
+    lists:reverse(MergedList) ++ List2;
+ukeymerge(_N, List1, [], MergedList) ->
+    lists:reverse(MergedList) ++ List1;
+ukeymerge(N, [H1|T1], [H2|T2], MergedList) 
+  when element(N, H1) == element(N, H2) ->
+    ukeymerge(N, T1, T2, [H1|MergedList]);
+ukeymerge(N, [H1|T1], [H2|T2], MergedList)
+  when element(N, H1) < element(N, H2) ->
+    ukeymerge(N, T1, [H2|T2], [H1|MergedList]);
+ukeymerge(N, [H1|T1], [H2|T2], MergedList) ->
+    ukeymerge(N, [H1|T1], T2, [H2|MergedList]).
+             
 
 %%%===================================================================
 % Internal functions
