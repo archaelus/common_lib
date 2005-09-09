@@ -46,6 +46,13 @@
 %%%   <li><a href="#week-3">week/3</a> fixed.</li>
 %%% </ul>
 %%%
+%%% [9 Sep 2005]
+%%%
+%%% <ul>
+%%%   <li><a href="#tstamp-0">tstamp/0</a> and
+%%%     <a href="#tstamp-1">tstamp/1</a> added.</li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %%%         [http://www.des.udc.es/~mpquique/]
@@ -69,6 +76,8 @@
          then/1, 
          time_since/1, 
          time_until/1,
+         tstamp/0,
+         tstamp/1,
          week/0,
          week/1,
          week/3]).
@@ -81,6 +90,7 @@
 %%%-------------------------------------------------------------------
 %%% Macros
 %%%-------------------------------------------------------------------
+-define(JANUARY_1ST_1970, 62167219200).
 
 %%%-------------------------------------------------------------------
 %%% Records
@@ -225,6 +235,31 @@ time_until({MegaSecs, Secs, MicroSecs}) ->
     MegaSecsDiff  = MegaSecs  - MegaSecsNow,
     SecsDiff      = Secs      - SecsNow,
     ((MegaSecsDiff * 1000000) + SecsDiff * 1000000) + MicroSecs - MicroSecsNow.
+
+
+%% @spec tstamp() -> Tstamp
+%%    Tstamp = int()
+%%
+%% @doc Seconds since January 1st 1970.
+%% @end
+tstamp() ->
+    tstamp(calendar:local_time()).
+
+
+%% @spec tstamp(Time) -> Tstamp
+%%    Time = {{Year, Month, Day}, {Hour, Minute, Second}}
+%%    Year = int()
+%%    Month = int()
+%%    Day = int()
+%%    Hour = int()
+%%    Minute = int()
+%%    Sec = int()
+%%    Tstamp = int()
+%%
+%% @doc Seconds since January 1st 1970 until <tt>Time</tt>
+%% @end
+tstamp(Time) ->
+    calendar:datetime_to_gregorian_seconds(Time) - ?JANUARY_1ST_1970.
 
 
 %% @spec week() -> int()
