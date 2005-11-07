@@ -17,6 +17,7 @@ EDOC_OPTS = [{title,"Common Library"}, \
 EDOC_MODULES = \
 	binary \
 	my_calendar \
+	my_math \
 	my_lists \
 	my_string \
 	stats \
