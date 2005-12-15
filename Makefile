@@ -42,6 +42,7 @@ release:
 	mkdir $(BASE_REL)
 	cp -p $(OTHER_FILES) $(BASE_REL)
 	mkdir $(BASE_REL)/ebin
+	cp -p ebin/*.app $(BASE_REL)/ebin
 	mkdir $(BASE_REL)/doc
 	cp -p doc/*.html $(BASE_REL)/doc
 	cp -p doc/stylesheet.css $(BASE_REL)/doc
