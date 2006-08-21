@@ -53,6 +53,13 @@
 %%%     <a href="#tstamp-1">tstamp/1</a> added.</li>
 %%% </ul>
 %%%
+%%% [1 Aug 2006]
+%%%
+%%% <ul>
+%%%   <li><a href="#tstamp_to_local_time-1">tstamp_to_local_time/1</a> added.
+%%%   </li>
+%%% </ul>
+%%%
 %%% @copyright 2003 - 2004 Enrique Marcote Peña
 %%% @author Enrique Marcote Peña <mpquique@users.sourceforge.net>
 %%%         [http://www.des.udc.es/~mpquique/]
@@ -78,6 +85,7 @@
          time_until/1,
          tstamp/0,
          tstamp/1,
+         tstamp_to_local_time/1,
          week/0,
          week/1,
          week/3]).
@@ -260,6 +268,21 @@ tstamp() ->
 %% @end
 tstamp(Time) ->
     calendar:datetime_to_gregorian_seconds(Time) - ?JANUARY_1ST_1970.
+
+%% @spec tstamp_to_local_time(Tstamp) -> Time
+%%    Tstamp = int()
+%%    Time = {{Year, Month, Day}, {Hour, Minute, Second}}
+%%    Year = int()
+%%    Month = int()
+%%    Day = int()
+%%    Hour = int()
+%%    Minute = int()
+%%    Sec = int()
+%%
+%% @doc Converts a time stamp value to local time format.
+%% @end
+tstamp_to_local_time(Tstamp) ->
+    calendar:gregorian_seconds_to_datetime(Tstamp + ?JANUARY_1ST_1970).
 
 
 %% @spec week() -> int()
