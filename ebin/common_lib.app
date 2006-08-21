@@ -12,4 +12,4 @@
                 stats,
                 xml]},
      {registered, []},
-     {applications, [kernel, stdlib]}]}.
+     {applications, [kernel, stdlib, xmerl]}]}.
