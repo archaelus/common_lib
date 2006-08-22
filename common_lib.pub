@@ -1,5 +1,5 @@
 {name, "common_lib"}.
-{vsn, {1,0}}.
+{vsn, {1,3}}.
 {summary, "Some General Purpose Library Modules"}.
 {author, "Enrique Marcote Peña", "mpquique@users.sourceforge.net", "20040512"}.
 {keywords, ["binary", "calendar", "lists", "string", "stats"]}.
