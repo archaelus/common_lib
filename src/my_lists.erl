@@ -174,7 +174,6 @@ asearch(APred, List) ->
               end,
     ASearch(List, ASearch, false).
 
-
 %% @spec cut(List, Index) -> {Prefix, Suffix}
 %%    List   = [term()]
 %%    Index  = int()
@@ -200,7 +199,6 @@ cut(Suffix, RevPrefix, 0) ->
 cut([H|T], RevPrefix, N) ->
     cut(T, [H|RevPrefix], N - 1).
 
-
 %% @spec delete(Element, N, TupleList1) -> TupleList2
 %%    Element = term()
 %%    N = int()
@@ -225,7 +223,6 @@ delete(Element, N, [H|T], Acc) when element(N, H) == Element ->
 delete(Element, N, [H|T], Acc) ->
     delete(Element, N, T, [H|Acc]).
 
-
 %% @spec first(Pred, List) -> Element
 %%    List    = [Element]
 %%    Element = term()
@@ -241,7 +238,6 @@ first(Pred, [H|T]) ->
         true  -> H;
         false -> first(Pred, T)
     end.
-
     
 %% @spec from_number(Number) -> List
 %%    Number = int() | float()
@@ -258,7 +254,6 @@ from_number(Number) ->
             L
     end.
 
-
 %% @spec has_duplicates(List) -> bool()
 %%    List = term()
 %%
@@ -274,7 +269,6 @@ has_duplicates([H|T]) ->
             has_duplicates(T)
     end.
 
-
 %% @spec hexlist_to_intlist(HexList) -> IntList
 %%    HexList = [Hex]
 %%    Hex = int()
@@ -289,7 +283,6 @@ has_duplicates([H|T]) ->
 %% @end 
 hexlist_to_intlist(List) ->
     lists:map(fun(X) -> httpd_util:hexlist_to_integer(X) end, split2(List)).
-
 
 %% @spec intersec(List1, List2) -> List3
 %%    List1 = [term()]
@@ -315,7 +308,6 @@ intersec([H|T], List2, Acc) ->
         false ->
             intersec(T, List2, Acc)
     end.
-
 
 %% @spec intlist_to_hexlist(IntList) -> HexList
 %%    IntList = [int()]
@@ -347,7 +339,6 @@ intlist_to_hexlist([H|T], Acc) ->
     [A,B] = erlang:integer_to_list(H, 16),
     intlist_to_hexlist(T, [B,A|Acc]).
 
-
 %% @spec is_deep(List) -> bool()
 %%    List    = [Element]
 %%    Element = term()
@@ -359,8 +350,12 @@ is_deep([H|_]) when list(H) -> true;
 is_deep([_|T])              -> is_deep(T);
 is_deep(_)                  -> false.
 
-
 %% @spec keyindex(Key, N, TupleList) -> Index
+%%    Key = term()
+%%    N = int()
+%%    TupleList = [Tuple]
+%%    Tuple = tuple()
+%%    Index = int()
 %%
 %% @doc Gets the <tt>Index</tt> of the tuple on <tt>TupleList</tt> whose
 %% Nth element is <tt>Key</tt>.
@@ -380,7 +375,6 @@ keyindex(Key, N, [H|_], Index) when element(N, H) == Key ->
 keyindex(Key, N, [_|T], Index) ->
     keyindex(Key, N, T, Index + 1).
     
-
 %% @spec random(Max, Length) -> List
 %%    Max    = int()
 %%    Lenght = int()
@@ -405,7 +399,6 @@ random(_Max, 0, List) ->
 random(Max, Length, List) ->
     random(Max, Length - 1, [random:uniform(Max)|List]).
 
-
 %% @spec random_seq(Max, Length) -> List
 %%    Max    = int()
 %%    Lenght = int()
@@ -425,7 +418,6 @@ random_seq(Max, Length) when (Length * 2) > Max ->
     random_del(Max, Max - Length, lists:seq(1, Max));
 random_seq(Max, Length) ->
     lists:sort(random_add(Max, Length, [])).
-
 
 %% @spec search(Pred, List) -> Result
 %%    List = [term()]
@@ -448,7 +440,6 @@ search(Pred, [H|T]) ->
         _False ->
             search(Pred, T)
     end.
-
 
 %% @spec split(List, N) -> {List1, List2}
 %%    List  = [Element]
@@ -474,7 +465,6 @@ split(List, 0, Acc) ->
 split([H|T], N, Acc) ->
     split(T, N-1, [H|Acc]).
 
-
 %% @spec split2(List) -> Chunks
 %%    List = [term()]
 %%    Chunks = [Chunk]
@@ -496,7 +486,6 @@ split2([H1,H2|T], Acc) ->
     split2(T, [[H1,H2]|Acc]);
 split2([H|T], Acc) ->
     split2(T, [[H]|Acc]).
-
 
 %% @spec splitwith(Pred, List) -> {List1, List2}
 %%    List  = [term()]
@@ -524,10 +513,11 @@ splitwith(_Pred, [], L1, L2) ->
     {lists:reverse(L1), lists:reverse(L2)};
 splitwith(Pred, [H|T], L1, L2) ->
     case Pred(H) of
-        true  -> splitwith(Pred, T, [H|L1], L2);
-        false -> splitwith(Pred, T, L1, [H|L2])
+        true  -> 
+            splitwith(Pred, T, [H|L1], L2);
+        false -> 
+            splitwith(Pred, T, L1, [H|L2])
     end.
-
 
 %% @spec to_integer(OctetList) -> int()
 %%    OctetList = [Octet]
@@ -562,7 +552,6 @@ to_integer(OctetList) ->
     <<Value:Size/integer>> = list_to_binary(OctetList),
     Value.
 
-
 %% @spec to_number(List) -> Number
 %%    List   = string()
 %%    Number = int() | float()
@@ -577,7 +566,6 @@ to_number(List) ->
         I -> 
             I
     end.
-
 
 %% @spec ukeymerge(N, List1, List2) -> List3
 %%    N = int()
@@ -622,7 +610,6 @@ ukeymerge(N, [H1|T1], [H2|T2], MergedList)
 ukeymerge(N, [H1|T1], [H2|T2], MergedList) ->
     ukeymerge(N, [H1|T1], T2, [H2|MergedList]).
              
-
 %%%===================================================================
 % Internal functions
 %%%===================================================================
@@ -658,6 +645,8 @@ random_add(_Max, 0, List) ->
 random_add(Max, Count, List) ->
     Element = random:uniform(Max),
     case lists:member(Element, List) of
-        true -> random_add(Max, Count, List);
-        _    -> random_add(Max, Count - 1, [Element|List])
+        true -> 
+            random_add(Max, Count, List);
+        _    -> 
+            random_add(Max, Count - 1, [Element|List])
     end.
