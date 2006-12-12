@@ -1,6 +1,6 @@
 {application, common_lib,
     [{description, "Common Library with some general purpose modules"},
-     {vsn, "1.2"},
+     {vsn, "1.3"},
      {id, "common_lib"},
      {modules, [binary, 
                 mnesia_seq, 
