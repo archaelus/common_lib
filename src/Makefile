@@ -15,6 +15,7 @@ EDOC_OPTS = [{title,"Common Library"}, \
 # Target Specs
 # ----------------------------------------------------
 EDOC_MODULES = \
+	target_system \
 	binary \
 	my_calendar \
 	my_math \
