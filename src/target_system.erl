@@ -32,14 +32,15 @@ create(RelFileName) ->
 %%    RelFileName = string()
 %%    RelPath = string()
 %%    SOpts = no_module_tests | local | 
-%%                 {variables,[Var]} | exref | {exref,[App]}] | silent | 
+%%                 {variables, [Var]} | exref | {exref, [App]} | silent | 
 %%                 {outdir,Dir}
 %%    TOpts = {dirs,[IncDir]} | {variables,[Var]} | 
 %%              {var_tar,VarTar} | {erts,Dir} | no_module_tests | exref | 
 %%              {exref,[App]} | silent | {outdir,Dir}
 %%    Dir = string()
 %%    Var = {VarName,Prefix}
-%%    VarName = Prefix = string()
+%%    VarName = string()
+%%    Prefix = string()
 %%    App = atom()
 %%    IncDir = src | include | atom()
 %%    VarTar = include | ownfile | omit
