@@ -79,7 +79,7 @@ from_hexlist(HexList) ->
 
 
 %% @spec to_hexlist(Bin) -> HexList
-%%    Bin = binary()
+%%    Bin = binary() | [binary()]
 %%    HexList = [Hex]
 %%    Hex = int()
 %%
@@ -91,9 +91,10 @@ from_hexlist(HexList) ->
 %% @see from_hexlist/1
 %% @see my_lists:intlist_to_hexlist/1
 %% @end 
-to_hexlist(Bin) -> 
-    my_lists:intlist_to_hexlist(binary_to_list(Bin)).
-
+to_hexlist(Bin) when is_binary(Bin) -> 
+    my_lists:intlist_to_hexlist(binary_to_list(Bin));
+to_hexlist(Bins) when is_list(Bins) ->
+    lists:append(lists:map(fun to_hexlist/1, Bins)).
 
 %% @spec take_until(Binary, Pattern, Size) -> Result
 %%    Binary       = bin()
