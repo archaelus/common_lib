@@ -346,7 +346,7 @@ intlist_to_hexlist([H|T], Acc) ->
 %% @doc Returns <tt>true</tt> if <tt>List</tt> is a deep list, <tt>false</tt>
 %% otherwise.
 %% @end 
-is_deep([H|_]) when list(H) -> true;
+is_deep([H|_]) when is_list(H) -> true;
 is_deep([_|T])              -> is_deep(T);
 is_deep(_)                  -> false.
 

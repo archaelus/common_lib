@@ -256,8 +256,8 @@ copy_file(Src, Dest) ->
     copy_file(Src, Dest, []).
 
 copy_file(Src, Dest, Opts) ->
-    {ok, InFd} = file:rawopen(Src, {binary, read}),
-    {ok, OutFd} = file:rawopen(Dest, {binary, write}),
+    {ok, InFd} = file:open(Src, {binary, read, raw}),
+    {ok, OutFd} = file:open(Dest, {binary, write, raw}),
     do_copy_file(InFd, OutFd),
     file:close(InFd),
     file:close(OutFd),
